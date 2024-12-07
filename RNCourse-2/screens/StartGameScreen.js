@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
-import PrimaryButton from "../components/PrimaryButton";
+import PrimaryButton from "../components/ui/PrimaryButton";
+import Colors from "../constants/colors";
+import Title from "../components/ui/Title";
 
-const StartGameScreen = () => {
+const StartGameScreen = ({ onPick }) => {
   const [number, setNumber] = useState();
   const onChangeNumber = (text) => {
     setNumber(text);
@@ -18,23 +20,26 @@ const StartGameScreen = () => {
       ]);
       return;
     }
-    console.log("valid number");
+    onPick(chosenNumber);
   };
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType="number-pad"
-        value={number}
-        onChangeText={onChangeNumber}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
-        </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+    <View>
+      <Title>Guess my number!</Title>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.numberInput}
+          maxLength={2}
+          keyboardType="number-pad"
+          value={number}
+          onChangeText={onChangeNumber}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
       </View>
     </View>
@@ -44,13 +49,14 @@ const StartGameScreen = () => {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+  rootContainer
   inputContainer: {
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
     marginTop: 100,
     marginHorizontal: 24,
-    backgroundColor: "#4e0329",
+    backgroundColor: Colors.primary500,
     borderRadius: 16,
     elevation: 4, //for android
     // for ios
@@ -63,9 +69,9 @@ const styles = StyleSheet.create({
     height: 60,
     width: 50,
     fontSize: 32,
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: Colors.yellow500,
     borderBottomWidth: 2,
-    color: "#ddb52f",
+    color: Colors.yellow500,
     marginVertical: 16,
     fontWeight: "bold",
     textAlign: "center",
