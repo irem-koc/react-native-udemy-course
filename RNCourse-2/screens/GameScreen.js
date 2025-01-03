@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, FlatList, StyleSheet, View } from "react-native";
+import GuessLogItem from "../components/game/GuessLogItem";
 import NumberContainer from "../components/game/NumberContainer";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
@@ -24,9 +25,14 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     userNumber
   );
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameOver();
+      onGameOver(guessRounds.length);
     }
   }, [currentGuess, userNumber, onGameOver]);
   function nextGuessHandler(direction) {
@@ -50,7 +56,11 @@ const GameScreen = ({ userNumber, onGameOver }) => {
       currentGuess
     );
     setCurrentGuess(newRndmNumber);
+    setGuessRounds((prevState) => {
+      return [newRndmNumber, ...prevState];
+    });
   }
+  const guessRoundsLength = guessRounds.length;
   return (
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
@@ -76,6 +86,21 @@ const GameScreen = ({ userNumber, onGameOver }) => {
         </View>
       </Card>
       {/* <View>Log Rounds</View> */}
+      <View style={styles.listContainer}>
+        {/* {guessRounds.map((guess, i) => (
+          <Text key={i}>{guess}</Text>
+        ))} */}
+        <FlatList
+          renderItem={(item) => (
+            <GuessLogItem
+              roundNumber={guessRoundsLength - item.index}
+              guess={item.item}
+            />
+          )}
+          data={guessRounds}
+          keyExtractor={(key) => key}
+        />
+      </View>
     </View>
   );
 };
@@ -95,5 +120,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+  },
+  listContainer: {
+    flex: 1,
+    padding: 16,
   },
 });
