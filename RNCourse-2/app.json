@@ -23,6 +23,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./fonts/OpenSans-Bold.ttf",
+            "./fonts/OpenSans-Regular.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }
