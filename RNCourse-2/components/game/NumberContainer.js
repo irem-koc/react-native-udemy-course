@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import Colors from "../../constants/colors";
 
 const NumberContainer = ({ children }) => {
@@ -11,20 +11,20 @@ const NumberContainer = ({ children }) => {
 };
 
 export default NumberContainer;
-
+const deviceWidth = Dimensions.get("window").width; // screen includes statusbar but window not include
 const styles = StyleSheet.create({
   container: {
     borderWidth: 4,
     borderColor: Colors.primary500,
-    padding: 24,
+    padding: deviceWidth < 380 ? 12 : 24,
     borderRadius: 8,
-    margin: 24,
+    margin: deviceWidth < 380 ? 12 : 24,
     alignItems: "center",
     justifyContent: "center",
   },
   numberText: {
     color: Colors.primary500,
-    fontSize: 36,
+    fontSize: deviceWidth < 380 ? 24 : 36,
     // fontWeight: "bold",
     fontFamily: "open-sans-bold",
   },
