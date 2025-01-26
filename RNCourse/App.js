@@ -19,7 +19,7 @@ export default function App() {
   };
   return (
     <>
-      <StatusBar />
+      <StatusBar style="light" />
       <View style={styles.appContainer}>
         <Button
           onPress={() => setShowModal(true)}

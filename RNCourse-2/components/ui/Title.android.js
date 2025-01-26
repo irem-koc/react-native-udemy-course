@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 
 const Title = ({ children }) => {
   return (
@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     padding: 12,
+    // borderWidth: Platform.OS === "ios" ? 0 : 2,
+    // borderWidth: Platform.select({ ios: 0, android: 2 }),
     borderWidth: 2,
     borderColor: "white",
     maxWidth: "80%", // it effects the parent container's width
